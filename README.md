@@ -56,6 +56,13 @@ module "app_install" {
 The association is additive, so it never detaches repos that other projects share
 on the same App. See [`examples/install`](examples/install) for a runnable root.
 
+One caveat: this resource hits the user-context endpoint `PUT
+/user/installations/{id}/repositories/{repo_id}`, so it needs a token from a user
+who owns the org (a PAT with `admin:org`). An App token can't modify its own
+installation, so this won't run in App-authenticated CI. If that's your setup,
+install the App with "Only select repositories" and manage the list in the GitHub
+UI instead.
+
 ## Related
 
 This App authenticates CI for
