@@ -1,0 +1,17 @@
+{
+  "name": "<APP_NAME>",
+  "description": "Automation app used by Terraform to manage GitHub repositories (settings, rulesets, labels) and to confirm CI secrets exist.",
+  "url": "<APP_URL>",
+  "public": false,
+  "redirect_url": "http://localhost:8723/callback",
+  "default_events": [],
+  "default_permissions": {
+    "administration": "write",
+    "environments": "write",
+    "issues": "write",
+    "contents": "read",
+    "metadata": "read",
+    "secrets": "read",
+    "organization_secrets": "read"
+  }
+}
