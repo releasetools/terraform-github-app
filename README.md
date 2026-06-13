@@ -51,5 +51,12 @@ on the same App.
 
 ## Requirements
 
-- Terraform >= 1.10, `integrations/github` ~> 6.0
+- Terraform >= 1.15, `integrations/github` ~> 6.12
 - `gh`, `jq`, and `python3` for the create script
+
+## Dependency updates
+
+Renovate keeps the Terraform and provider versions current. Its config
+(`renovate.json`) extends the org-wide preset in
+[`releasetools/.github`](https://github.com/releasetools/.github/blob/main/default.json),
+so update policy lives in one place.
