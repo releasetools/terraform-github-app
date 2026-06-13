@@ -29,8 +29,15 @@ Overrides (skip the prompt): `OWNER=<org>` (or your login for a personal app),
 
 ## Pin installation access
 
-Install the App on your repos (the script prints the link), then pin that as code
-with the module in this repo:
+Install the App on your repos (the script prints the link). Find the installation
+id (needs `admin:org`):
+
+```sh
+gh api /orgs/<org>/installations \
+  --jq '.installations[] | select(.app_slug=="<app-slug>") | .id'
+```
+
+Then pin which repos the installation can reach, as code:
 
 ```hcl
 provider "github" {
@@ -41,13 +48,21 @@ module "app_install" {
   source = "git::https://github.com/releasetools/terraform-github-app.git?ref=v0.1.0"
 
   app_slug        = "your-app-slug"
-  installation_id = "12345678"   # gh api /orgs/<org>/installations
+  installation_id = "12345678"
   repositories    = ["repo-a", "repo-b"]
 }
 ```
 
 The association is additive, so it never detaches repos that other projects share
-on the same App.
+on the same App. See [`examples/install`](examples/install) for a runnable root.
+
+## Related
+
+This App authenticates CI for
+[`terraform-github-repo`](https://github.com/releasetools/terraform-github-repo),
+the companion module that creates and configures a repository. The `GH_APP_*`
+credentials this script stores are what a workflow uses to mint the github
+provider token there.
 
 ## Requirements
 
